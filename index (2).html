@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficina Grace Tech (OGT) | Remap & Soluções Automotivas Online</title>
+    <meta name="description" content="Especialistas em Remap de ECU, calibração para Linha Diesel Leve, soluções eletrônicas de módulos e softwares automotivos. Atendimento 100% online para todo o Brasil.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070b12;
+            --bg-card: #0d1522;
+            --bg-card-hover: #131f33;
+            --primary: #00c6ff;
+            --primary-glow: rgba(0, 198, 255, 0.35);
+            --secondary: #0072ff;
+            --text-light: #f0f6fc;
+            --text-muted: #8b9bb4;
+            --border-glow: #1a2c4e;
+            --accent-glow: #00f0ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Ambient Glow & Grid Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(0, 198, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 198, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glow-orb {
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -120px;
+            right: -120px;
+            z-index: -1;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header & Nav */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-glow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7, 11, 18, 0.85);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-badge {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: #000;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .logo-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .logo-slogan {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: #070b12;
+            box-shadow: 0 4px 20px var(--primary-glow);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(0, 198, 255, 0.6);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 198, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 90px 0 60px;
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(0, 198, 255, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(0, 198, 255, 0.3);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .hero h2 span {
+            background: linear-gradient(135deg, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 36px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Services Section */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 45px;
+        }
+
+        .section-title h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            background: var(--bg-card-hover);
+            box-shadow: 0 10px 30px rgba(0, 198, 255, 0.15);
+        }
+
+        .service-icon {
+            font-size: 2.2rem;
+            margin-bottom: 18px;
+            color: var(--primary);
+        }
+
+        .service-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card ul {
+            list-style: none;
+            padding-left: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+        }
+
+        .service-card li {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .service-card li::before {
+            content: "✔";
+            color: var(--primary);
+            font-size: 0.75rem;
+        }
+
+        /* Banner Diesel Remap */
+        .diesel-banner {
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(0, 114, 255, 0.15), rgba(0, 198, 255, 0.05));
+            border: 1px solid var(--primary);
+            border-radius: 16px;
+            padding: 45px 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+            box-shadow: 0 0 35px rgba(0, 198, 255, 0.1);
+        }
+
+        .diesel-content {
+            max-width: 650px;
+        }
+
+        .diesel-content h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .diesel-content h4 span {
+            color: var(--primary);
+        }
+
+        .diesel-content p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 18px;
+        }
+
+        .tags-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag-pill {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* Softwares Showcase */
+        .softwares-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        .software-badge {
+            background: rgba(13, 21, 34, 0.8);
+            border: 1px solid var(--border-glow);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .software-badge:hover {
+            border-color: var(--primary);
+            background: var(--bg-card-hover);
+        }
+
+        /* Values & Purpose */
+        .values-section {
+            margin: 90px 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 50px 30px;
+            text-align: center;
+        }
+
+        .values-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+
+        .values-section blockquote {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .values-section cite {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-glow);
+            padding: 40px 0 20px;
+            background: rgba(7, 11, 18, 0.95);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: #53657d;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Mobile Ajustado */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                align-items: center;
+                text-align: center;
+            }
+
+            .logo-area {
+                justify-content: center;
+            }
+
+            .logo-text h1 {
+                font-size: 1.15rem;
+            }
+
+            header .btn {
+                width: auto;
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 50px 0 40px;
+            }
+
+            .hero h2 {
+                font-size: 1.9rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                padding: 0 5px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+            }
+
+            .section-title {
+                margin: 50px 0 30px;
+            }
+
+            .section-title h3 {
+                font-size: 1.6rem;
+            }
+
+            .diesel-banner {
+                margin-top: 50px;
+                padding: 30px 20px;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .diesel-banner .btn {
+                width: 100%;
+            }
+
+            .tags-pills {
+                justify-content: center;
+            }
+
+            .softwares-list {
+                gap: 8px;
+            }
+
+            .software-badge {
+                font-size: 0.78rem;
+                padding: 8px 12px;
+                flex: 1 1 calc(50% - 10px); /* 2 por linha perfeitos no celular */
+                box-sizing: border-box;
+            }
+
+            .values-section {
+                margin: 50px 0;
+                padding: 35px 18px;
+            }
+
+            .values-section h3 {
+                font-size: 1.5rem;
+            }
+
+            .values-section blockquote {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="glow-orb"></div>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <header>
+            <div class="logo-area">
+                <div class="logo-badge">OGT</div>
+                <div class="logo-text">
+                    <h1>OFICINA <span>GRACE TECH</span></h1>
+                    <div class="logo-slogan">Tecnologia. Confiança. Propósito.</div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#diesel">Remap Diesel</a></li>
+                    <li><a href="#softwares">Softwares</a></li>
+                    <li><a href="#sobre">Propósito</a></li>
+                </ul>
+            </nav>
+            <a href="https://instagram.com/ogt.oficina" target="_blank" class="btn btn-outline">Instagram @ogt.oficina</a>
+        </header>
+
+        <!-- Hero Banner -->
+        <section class="hero">
+            <div class="hero-tag">⚡ Soluções Digitais & Eletrônica Automotiva</div>
+            <h2>Potência, Tecnologia e Fé <br><span>em Cada Programação.</span></h2>
+            <p>Especialistas em calibração de ECU, edição de mapas, soluções técnicas para linha diesel leve e fornecimento de ferramentas digitais automotivas com suporte remoto dedicado.</p>
+            <div class="hero-actions">
+                <a href="https://www.mercadolivre.com.br/pagina/ogt#from=share_eshop" target="_blank" class="btn btn-primary">🛒 Loja Oficial Mercado Livre</a>
+                <a href="https://wa.link/6rkxfx" target="_blank" class="btn btn-outline">📲 Falar com OGT - WhatsApp</a>
+            </div>
+        </section>
+
+        <!-- Serviços -->
+        <section id="servicos">
+            <div class="section-title">
+                <h3>Soluções Especializadas</h3>
+                <p>Desenvolvidas para reparadores, oficinas mecânicas, autoelétricas e entusiastas.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Card 1 -->
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h4>Remap & Calibração de ECU</h4>
+                    <p>Arquivos 100% personalizados focados em desempenho, torque, retomadas ágeis e economia de combustível.</p>
+                    <ul>
+                        <li>Stage 1 e Stage 2 customizados</li>
+                        <li>Correção de atraso no pedal do acelerador</li>
+                        <li>Checksum corrigido para máxima segurança</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card">
+                    <div class="service-icon">🛠️</div>
+                    <h4>Soluções Técnicas de Módulo</h4>
+                    <p>Resolução eletrônica de falhas crônicas e ajustes dedicados em software automotivo.</p>
+                    <ul>
+                        <li>DTC Off (Desativação de códigos de falha)</li>
+                        <li>Soluções em DPF, EGR, Lambda e Imobilizador</li>
+                        <li>Arquivos testados em bancada e simulador</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h4>Softwares & Ferramentas</h4>
+                    <p>Venda, ativação e configuração remota de suítes de diagnóstico e edição de calibração.</p>
+                    <ul>
+                        <li>WinOLS, ECM Titanium, DaVinci, ToyoLex</li>
+                        <li>Instalação remota assistida por nossa equipe</li>
+                        <li>Atendimento técnico pós-venda garantido</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Destaque Diesel Leve -->
+        <section id="diesel">
+            <div class="diesel-banner">
+                <div class="diesel-content">
+                    <h4>NOVO: <span>REMAP DIESEL LEVE</span></h4>
+                    <p>Libere o verdadeiro potencial da sua caminhonete, SUV ou van de trabalho com mapas seguros e robustos desenvolvidos especificamente para as condições brasileiras.</p>
+                    <div class="tags-pills">
+                        <span class="tag-pill">Toyota Hilux</span>
+                        <span class="tag-pill">VW Amarok</span>
+                        <span class="tag-pill">Ford Ranger</span>
+                        <span class="tag-pill">Chevrolet S10</span>
+                        <span class="tag-pill">Fiat Toro</span>
+                        <span class="tag-pill">Nissan Frontier</span>
+                        <span class="tag-pill">Vans & Utilitários</span>
+                    </div>
+                </div>
+                <div>
+                    <a href="https://wa.link/6rkxfx" target="_blank" class="btn btn-primary">Solicitar Orçamento no WhatsApp</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Softwares Suportados -->
+        <section id="softwares">
+            <div class="section-title">
+                <h3>Softwares & Plataformas</h3>
+                <p>Trabalhamos com os principais sistemas mundiais de diagnóstico e edição.</p>
+            </div>
+            <div class="softwares-list">
+                <div class="software-badge">WinOLS 4.7</div>
+                <div class="software-badge">ECM Titanium</div>
+                <div class="software-badge">DaVinci</div>
+                <div class="software-badge">ToyoLex 3 / 4</div>
+                <div class="software-badge">XDecoder</div>
+                <div class="software-badge">SDP3 Scania</div>
+                <div class="software-badge">Cummins Insite & Calterm</div>
+                <div class="software-badge">KESS & KTAG</div>
+                <div class="software-badge">Autotuner & FLEX</div>
+            </div>
+        </section>
+
+        <!-- Propósito e Valores -->
+        <section id="sobre" class="values-section">
+            <h3>Nosso Propósito</h3>
+            <blockquote>"Tudo o que fizerem, façam de todo o coração, como para o Senhor, e não para os homens."</blockquote>
+            <cite>Colossenses 3:23</cite>
+            <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.95rem;">
+                Na Oficina Grace Tech (OGT), aliamos o que há de mais avançado na engenharia de software automotivo a valores inegociáveis de integridade, transparência e respeito a cada cliente atendido.
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-links">
+                <a href="https://wa.link/6rkxfx" target="_blank">WhatsApp Suporte</a>
+                <a href="https://www.mercadolivre.com.br/pagina/ogt#from=share_eshop" target="_blank">Loja Mercado Livre</a>
+                <a href="https://instagram.com/ogt.oficina" target="_blank">Instagram @ogt.oficina</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#diesel">Linha Diesel</a>
+            </div>
+            <p class="copyright">© 2026 Oficina Grace Tech (OGT). Todos os direitos reservados.<br>Tecnologia. Confiança. Propósito.</p>
+        </footer>
+    </div>
+</body>
+</html>
